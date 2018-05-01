@@ -32,10 +32,15 @@
 </template>
 
 <script>
+  import {
+    easing
+  } from 'quasar'
   export default {
     name: 'Carousel',
     data() {
-      return {}
+      return {
+        overshoot: easing.overshoot,
+      }
     }
   }
 </script>

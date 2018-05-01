@@ -19,6 +19,11 @@
     name: 'QuickReply',
     data() {
       return {}
+    },
+    methods: {
+      test() {
+        this.$emit('quickReplyValue');
+      }
     }
   }
 </script>
