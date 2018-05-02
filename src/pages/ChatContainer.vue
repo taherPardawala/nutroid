@@ -1,6 +1,9 @@
 <template>
   <q-page class="row justify-center">
     <div v-scroll="scrolled" class="q-mt-lg q-mb-xl" style="width: 650px; max-width: 90vw;">
+      <div v-show="loading" align="center" class="q-mt-sm q-mb-sm">
+        <q-spinner-dots size="2rem" />
+      </div>
       <chat-message v-for="(msg, key) in message" :key=key :message=msg />
       <carousel />
       <list />
@@ -54,7 +57,20 @@
       },
       scrolled(position) {
         if (position === 0) {
-          console.log('0 ho gaya')
+          this.loading = true;
+          var that = this
+          setTimeout(function() {
+            that.message.unshift({
+              sent: false,
+              text: ['lorem ipsum dolor amet sit'],
+              name: 'ZOZO HUHU'
+            }, {
+              sent: true,
+              text: ['lorem ipsum dolor amet sit'],
+              name: 'ZOZO HUHU'
+            });
+            that.loading = false;
+          }, 1000);
         }
       },
       test() {
@@ -63,6 +79,7 @@
     },
     data() {
       return {
+        loading: false,
         inputMessageText: '',
         message: [{
             sent: false,
