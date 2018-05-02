@@ -1,6 +1,6 @@
 <template>
   <!-- List Elements -->
-  <div style="width: 500px; max-width: 90vw;" class="q-mt-md q-mb-md">
+  <div style="width: 650px; max-width: 90vw;" class="q-mt-md q-mb-md">
     <q-list inset-separator>
       <q-list-header>Products List</q-list-header>
       <q-item multiline>

@@ -85,7 +85,8 @@ module.exports = function (ctx) {
       directives: [
         'Ripple',
         'Scroll',
-        'CloseOverlay'
+        'CloseOverlay',
+        'Scroll'
       ],
       // Quasar plugins
       plugins: [

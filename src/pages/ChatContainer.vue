@@ -1,26 +1,39 @@
 <template>
   <q-page class="row justify-center">
-    <div id="chatContainer" class="q-mt-lg q-mb-xl" style="width: 650px; max-width: 90vw;">
-    <chat-message v-for="(msg, key) in message" :key=key :message=msg />
-    <carousel />
-    <list />
-    <quick-reply @quickReplyValue="test" />
+    <div v-scroll="scrolled" class="q-mt-lg q-mb-xl" style="width: 650px; max-width: 90vw;">
+      <chat-message v-for="(msg, key) in message" :key=key :message=msg />
+      <carousel />
+      <list />
+      <quick-reply @quickReplyValue="test" />
+      <!-- Used this element to scroll to the end of the chat every time -->
+      <p id="scroll-here"></p>
     </div>
-    <div class="round-borders	q-pl-xs q-pr-xs" style="position:fixed; bottom:4px; width: 650px; max-width: 90vw; background-color:#f4f4f4;">
+    <div class="q-pl-xs q-pr-xs" style="position:fixed; bottom:4px; width: 650px; max-width: 90vw; background-color:#f4f4f4;">
       <q-input color="negative" @keyup="sendMessage" float-label="Type here...." placeholder="start typing" v-model.trim="inputMessageText" :after="[ { icon: 'arrow_forward', content: true, handler () {sendMessage({'key':'Enter'});} } ]" />
     </div>
   </q-page>
 </template>
 
 <script>
-  
   import ChatMessage from '../components/ChatMessage.vue'
   import Carousel from '../components/Carousel.vue'
   import List from '../components/List.vue'
   import QuickReply from '../components/QuickReply.vue'
+  import {
+    scroll
+  } from 'quasar'
+  const {
+    getScrollTarget,
+    setScrollPosition
+  } = scroll
+  // Export default
   export default {
     name: 'ChatContainer',
     created() {
+      console.log('created')
+    },
+    mounted() {
+      this.scrollToBottom();
     },
     methods: {
       sendMessage(key) {
@@ -32,6 +45,18 @@
       clear() {
         this.inputMessageText = "";
       },
+      scrollToBottom() {
+        let p = document.getElementById('scroll-here');
+        let target = getScrollTarget(p);
+        let offset = p.offsetTop - p.scrollHeight;
+        let duration = 100;
+        setScrollPosition(target, offset, duration);
+      },
+      scrolled(position) {
+        if (position === 0) {
+          console.log('0 ho gaya')
+        }
+      },
       test() {
         console.log('test');
       }
@@ -39,8 +64,7 @@
     data() {
       return {
         inputMessageText: '',
-        message: [
-          {
+        message: [{
             sent: false,
             text: ['lorem ipsum dolor amet sit'],
             name: 'Huzefa'
