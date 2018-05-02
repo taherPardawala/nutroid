@@ -11,8 +11,9 @@
       <!-- Used this element to scroll to the end of the chat every time -->
       <p id="scroll-here"></p>
     </div>
-    <div class="q-pl-xs q-pr-xs" style="position:fixed; bottom:4px; width: 650px; max-width: 90vw; background-color:#f4f4f4;">
-      <q-input color="negative" @keyup="sendMessage" float-label="Type here...." placeholder="start typing" v-model.trim="inputMessageText" :after="[ { icon: 'arrow_forward', content: true, handler () {sendMessage({'key':'Enter'});} } ]" />
+    <div class="q-pl-xs q-pr-xs" style="position:fixed; bottom:4px; width: 650px; max-width: 100vw; background-color:#f4f4f4;">
+      <q-input color="negative" @keyup="sendMessage" float-label="Type here...." placeholder="start typing" v-model.trim="inputMessageText" :after="[ { icon: 'arrow_forward', content: true, handler () {sendMessage({'key':'Enter'});} } ]" :before="[ { icon: 'menu', content: false, handler () { showActionSheetWithIcons() } } ]"
+      />
     </div>
   </q-page>
 </template>
@@ -73,6 +74,51 @@
           }, 1000);
         }
       },
+      showActionSheetWithIcons(grid) {
+        this.$q.actionSheet({
+          title: 'Article Actions',
+          grid: grid,
+          actions: [{
+              label: 'Delete',
+              icon: 'delete',
+              color: 'negative',
+              handler: () => {
+                this.$q.notify('Deleted Article')
+              }
+            },
+            {
+              label: 'Share',
+              icon: 'share',
+              color: 'blue',
+              handler: () => {
+                this.$q.notify('Shared!')
+              }
+            },
+            {
+              label: 'Play',
+              icon: 'gamepad',
+              handler: () => {
+                this.$q.notify('Launched Game')
+              }
+            },
+            {}, // separator
+            {
+              label: 'Favorite',
+              icon: 'favorite',
+              color: 'secondary',
+              handler: () => {
+                this.$q.notify('Added to favorites')
+              }
+            }
+          ],
+          dismiss: {
+            label: 'Cancel',
+            handler: () => {
+              this.$q.notify('Cancelled...')
+            }
+          }
+        })
+      },
       test() {
         console.log('test');
       }
@@ -111,7 +157,7 @@
             text: ['lorem ipsum dolor amet sit'],
             name: 'Taher'
           },
-        ]
+        ],
       }
     },
     components: {
