@@ -30,6 +30,9 @@
     getScrollTarget,
     setScrollPosition
   } = scroll
+  import {
+    ActionSheet
+  } from 'quasar'
   // Export default
   export default {
     name: 'ChatContainer',
@@ -74,10 +77,10 @@
           }, 1000);
         }
       },
-      showActionSheetWithIcons(grid) {
+      showActionSheetWithIcons() {
         this.$q.actionSheet({
           title: 'Article Actions',
-          grid: grid,
+          grid: false,
           actions: [{
               label: 'Delete',
               icon: 'delete',
