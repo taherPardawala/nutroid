@@ -5,7 +5,7 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'axios',
-      'connect-server'
+      'connect-chat-server'
     ],
     css: [
       'app.styl'

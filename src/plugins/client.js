@@ -32,7 +32,7 @@ function clientObject(config) {
     instance.defineClient = function () {
         let client = {};
         client.say = function (text, cb) {
-            socket.emit('say', 'asdasd');
+            socket.emit('say', text);
             if (cb) cb(null);
         }
 
