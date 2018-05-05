@@ -19,25 +19,27 @@
 </template>
 
 <script>
-  import ChatMessage from '../components/ChatMessage.vue'
-  import Carousel from '../components/Carousel.vue'
-  import List from '../components/List.vue'
-  import QuickReply from '../components/QuickReply.vue'
+  import ChatMessage from '../components/ChatMessage.vue';
+  import Carousel from '../components/Carousel.vue';
+  import List from '../components/List.vue';
+  import QuickReply from '../components/QuickReply.vue';
   import {
     scroll
-  } from 'quasar'
+  } from 'quasar';
   const {
     getScrollTarget,
     setScrollPosition
-  } = scroll
+  } = scroll;
   import {
     ActionSheet
-  } from 'quasar'
+  } from 'quasar';
   // Export default
   export default {
     name: 'ChatContainer',
     created() {
-      console.log('created')
+      console.log('created');
+      console.log(this['$server-instance']);
+      this['$server-client'].say('test');
     },
     mounted() {
       this.scrollToBottom();
