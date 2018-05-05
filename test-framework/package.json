@@ -9,7 +9,7 @@
   "author": "Rohan",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^2.1.0",
-    "socket.io-client": "^2.1.0"
+    "rtsocketclient": "0.0.1",
+    "socket.io": "^2.1.0"
   }
 }
