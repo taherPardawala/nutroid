@@ -82,7 +82,7 @@ module.exports = function (ctx) {
         'QCardMedia',
         'QCardSeparator',
         'QCardActions',
-        'QActionSheet'
+        'QModal'
       ],
       directives: [
         'Ripple',
@@ -92,7 +92,8 @@ module.exports = function (ctx) {
       ],
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'ActionSheet'
       ]
     },
     // animations: 'all' --- includes all animations

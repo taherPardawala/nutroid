@@ -8,6 +8,12 @@
       <carousel />
       <list />
       <quick-reply @quickReplyValue="test" />
+      <!-- The will be the webview for any external links to be shown -->
+      <!-- <q-modal v-model="maximizedModal" maximized :content-css="{padding: '50px'}"> -->
+      <q-modal v-model="maximizedModal" maximized>
+        <div align="right"><q-btn flat color="tertiary" @click="maximizedModal = false" icon="close" /></div>
+        <iframe src="http://quasar-framework.org" height="100%" width="100%"/>
+      </q-modal>
       <!-- Used this element to scroll to the end of the chat every time -->
       <p id="scroll-here"></p>
     </div>
@@ -38,7 +44,6 @@
     name: 'ChatContainer',
     created() {
       console.log('created');
-      console.log(this['$server-instance']);
       this['$server-client'].say('test');
     },
     mounted() {
@@ -81,55 +86,63 @@
       },
       showActionSheetWithIcons() {
         this.$q.actionSheet({
-          title: 'Article Actions',
-          grid: false,
-          actions: [{
-              label: 'Delete',
-              icon: 'delete',
-              color: 'negative',
-              handler: () => {
-                this.$q.notify('Deleted Article')
+            title: 'Article Actions',
+            grid: false,
+            actions: [{
+                label: 'Delete',
+                icon: 'delete',
+                color: 'negative',
+                handler: () => {
+                  this.$q.notify('Deleted Article')
+                }
+              },
+              {
+                label: 'Share',
+                icon: 'share',
+                color: 'blue',
+                handler: () => {
+                  this.$q.notify('Shared!')
+                }
+              },
+              {
+                label: 'Play',
+                icon: 'gamepad',
+                handler: () => {
+                  this.$q.notify('Launched Game')
+                }
+              },
+              {}, // separator
+              {
+                label: 'Favorite',
+                icon: 'favorite',
+                color: 'secondary',
+                handler: () => {
+                  this.$q.notify('Added to favorites')
+                }
               }
-            },
-            {
-              label: 'Share',
-              icon: 'share',
-              color: 'blue',
+            ],
+            dismiss: {
+              label: 'Cancel',
               handler: () => {
-                this.$q.notify('Shared!')
-              }
-            },
-            {
-              label: 'Play',
-              icon: 'gamepad',
-              handler: () => {
-                this.$q.notify('Launched Game')
-              }
-            },
-            {}, // separator
-            {
-              label: 'Favorite',
-              icon: 'favorite',
-              color: 'secondary',
-              handler: () => {
-                this.$q.notify('Added to favorites')
+                this.$q.notify('Cancelled...')
               }
             }
-          ],
-          dismiss: {
-            label: 'Cancel',
-            handler: () => {
-              this.$q.notify('Cancelled...')
-            }
-          }
-        })
+          })
+          .then(action => {
+            console.log('This is the then', action);
+          })
+          .catch((() => {
+            console.log('User dismissed the action');
+          }));
       },
       test() {
         console.log('test');
+        this.maximizedModal = true;
       }
     },
     data() {
       return {
+        maximizedModal: false,
         loading: false,
         inputMessageText: '',
         message: [{
